@@ -1,6 +1,6 @@
-fastapi
+fastapi~=0.72.0
 uvicorn
-cassandra-driver
+cassandra-driver~=3.25.0
 python-dotenv
 
-
+pydantic~=1.9.0

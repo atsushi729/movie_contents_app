@@ -23,3 +23,4 @@
 - Database for Testing
   - keyspace -> projest 1
     - tables (correspond to prod)
+    - py_compile.compile('./app/main.py') 
