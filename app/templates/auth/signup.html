@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Sign-up</h1>
+
+{% include 'snippets/form_errors.html' %}
+
+{{ data }}
 <form method="post">
     <div>
         <label for="email">Email</label>
