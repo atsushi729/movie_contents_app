@@ -7,6 +7,7 @@ from cassandra.cqlengine.management import sync_table
 from pydantic.error_wrappers import ValidationError
 
 from app import config, db, utils
+from app.shortcuts import render
 from app.users.models import User
 from app.users.schemas import UserSignupSchema, UserLoginSchema
 
@@ -33,10 +34,9 @@ def on_startup():
 @app.get("/", response_class=HTMLResponse)
 def homepage(request: Request):
     context = {
-        "request": request,
         "abc": 123
     }
-    return templates.TemplateResponse("home.html", context)
+    return render(request, "home.html", context)
 
 
 """
@@ -46,9 +46,8 @@ log-in
 
 @app.get("/login", response_class=HTMLResponse)
 def login_get_view(request: Request):
-    return templates.TemplateResponse("auth/login.html", {
-        "request": request,
-    })
+    session_id = request.cookies.get("session_id") or None
+    return render(request, "auth/login.html", status_code=200)
 
 
 @app.post("/login", response_class=HTMLResponse)
@@ -61,12 +60,13 @@ def login_post_view(request: Request,
         "password": password,
     }
     data, errors = utils.valid_schema_data_or_error(raw_data, UserLoginSchema)
-    print(data)
-    return templates.TemplateResponse("auth/login.html", {
-        "request": request,
+    context = {
         "data": data,
         "errors": errors,
-    })
+    }
+    if len(errors) > 0:
+        return render(request, "auth/login.html", context, status_code=400)
+    return render(request, "auth/login.html", {"logged_in": True}, cookies=data)
 
 
 """
@@ -76,9 +76,7 @@ sigh-in
 
 @app.get("/signup", response_class=HTMLResponse)
 def signup_get_view(request: Request):
-    return templates.TemplateResponse("auth/signup.html", {
-        "request": request,
-    })
+    return render(request, "auth/signup.html")
 
 
 @app.post("/signup", response_class=HTMLResponse)
@@ -93,9 +91,10 @@ def signup_post_view(request: Request,
         "password_confirm": password_confirm
     }
     data, errors = utils.valid_schema_data_or_error(raw_data, UserSignupSchema)
-    return templates.TemplateResponse("auth/signup.html", {
-        "request": request,
-        "data" : data,
+    if len(errors) > 0:
+        return render(request, "auth/signup.html", context, status_code=400)
+    return render(request, "auth/signup.html", {
+        "data": data,
         "errors": errors,
     })
 
@@ -104,4 +103,3 @@ def signup_post_view(request: Request,
 def user_list_view():
     q = User.objects.all().limit(10)
     return list(q)
-
