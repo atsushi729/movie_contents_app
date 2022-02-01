@@ -31,14 +31,12 @@ def login(user_obj, expires=5):  # create token if user passed 1st step
 def verify_user_id(token):
     # 3rd step
     data = {}
-    verified = False
     try:
         data = jwt.decode(token, settings.secret_key, algorithms=[settings.jwt_algorithm])
-        verified = True
     except ExpiredSignatureError as e:
         print(e)
     except:
         pass
     if 'user_id' not in data:
         return None
-    return data, verified
+    return data

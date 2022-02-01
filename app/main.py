@@ -1,13 +1,14 @@
 import json
 import pathlib
-from fastapi import FastAPI, Request, Form
+from fastapi import FastAPI, Request, Form, HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from cassandra.cqlengine.management import sync_table
 from pydantic.error_wrappers import ValidationError
 
 from app import config, db, utils
-from app.shortcuts import render
+from app.shortcuts import redirect, render
+from app.users.decorators import login_required
 from app.users.models import User
 from app.users.schemas import UserSignupSchema, UserLoginSchema
 
@@ -18,9 +19,9 @@ app = FastAPI()
 templates = Jinja2Templates(directory=str(TEMPLATE_DIR))
 
 DB_SESSION = None
-
-
 # settings = config.get_setting()
+
+from .handlers import *  # noqa
 
 
 @app.on_event("startup")
@@ -34,9 +35,16 @@ def on_startup():
 @app.get("/", response_class=HTMLResponse)
 def homepage(request: Request):
     context = {
-        "abc": 123
+        "abc": "abc"
     }
     return render(request, "home.html", context)
+
+
+@app.get("/account", response_class=HTMLResponse)
+@login_required
+def account_view(request: Request):
+    context = {}
+    return render(request, "account.html", context)
 
 
 """
@@ -66,7 +74,7 @@ def login_post_view(request: Request,
     }
     if len(errors) > 0:
         return render(request, "auth/login.html", context, status_code=400)
-    return render(request, "auth/login.html", {"logged_in": True}, cookies=data)
+    return redirect("/", cookies=data)
 
 
 """
@@ -93,10 +101,7 @@ def signup_post_view(request: Request,
     data, errors = utils.valid_schema_data_or_error(raw_data, UserSignupSchema)
     if len(errors) > 0:
         return render(request, "auth/signup.html", context, status_code=400)
-    return render(request, "auth/signup.html", {
-        "data": data,
-        "errors": errors,
-    })
+    return redirect("/login")
 
 
 @app.get("/user")
