@@ -18,7 +18,7 @@ def authenticate(email, password):
     return user_obj
 
 
-def login(user_obj, expires=5):  # create token if user passed 1st step
+def login(user_obj, expires=settings.session_duration):  # create token if user passed 1st step
     # 2nd step
     raw_data = {
         "user_id": f"{user_obj.user_id}",
