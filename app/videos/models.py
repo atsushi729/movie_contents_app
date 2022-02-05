@@ -1,13 +1,16 @@
 import uuid
 from app.config import get_settings
-from app.users.exception import InvalidUserIDException
+from app.users.exceptions import InvalidUserIDException
 from app.users.models import User
 from cassandra.cqlengine import columns
 from cassandra.cqlengine.models import Model
 
 settings = get_settings()
 
-from .exceptions import InvalidYouTubeVideoURLException, VideoAlreadyAddedException
+from .exceptions import (
+    InvalidYouTubeVideoURLException,
+    VideoAlreadyAddedException
+)
 from .extractors import extract_video_id
 
 
@@ -29,6 +32,9 @@ class Video(Model):
 
     def __repr__(self):
         return f"Video(host_id={self.host_id}, host_service={self.host_service})"
+
+    def as_data(self):
+        return {f"{self.host_service}_id": self.host_id}
 
     @staticmethod
     def add_video(url, user_id=None):

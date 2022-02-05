@@ -15,16 +15,14 @@ from app.users.decorators import login_required
 from app.users.models import User
 from app.users.schemas import UserSignupSchema, UserLoginSchema
 from app.videos.models import Video
+from app.videos.routers import router as video_router
 
+DB_SESSION = None
 BASE_DIR = pathlib.Path(__file__).resolve().parent  # app/
-TEMPLATE_DIR = BASE_DIR / "templates"
 
 app = FastAPI()
 app.add_middleware(AuthenticationMiddleware, backend=JWTCookieBackend())
-templates = Jinja2Templates(directory=str(TEMPLATE_DIR))
-
-DB_SESSION = None
-# settings = config.get_setting()
+app.include_router(video_router)
 
 from .handlers import *  # noqa
 
