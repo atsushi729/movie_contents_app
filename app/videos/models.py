@@ -2,6 +2,8 @@ import uuid
 from app.config import get_settings
 from app.users.exceptions import InvalidUserIDException
 from app.users.models import User
+from app.shortcuts import templates
+
 from cassandra.cqlengine import columns
 from cassandra.cqlengine.models import Model
 
@@ -33,6 +35,14 @@ class Video(Model):
     def __repr__(self):
         return f"Video(title={self.title}, host_id={self.host_id}, host_service={self.host_service})"
 
+    def render(self):
+        basename = self.host_service
+        template_name = f"videos/renders/{basename}.html"
+        context = {"host_id": self.host_id}
+        t = templates.get_template(template_name)
+        return t.render(context)
+
+
     def as_data(self):
         return {f"{self.host_service}_id": self.host_id, "path": self.path}
 
@@ -48,7 +58,7 @@ class Video(Model):
         user_exists = User.check_exists(user_id)
         if user_exists is None:
             raise InvalidUserIDException("Invalid user_id")
-        q = Video.objects.allow_filtering().filter(host_id=host_id, user_id=user_id)
+        q = Video.objects.allow_filtering().filter(host_id=host_id)  # , user_id=user_id)
         if q.count() != 0:
             raise VideoAlreadyAddedException("Video already added")
         return Video.create(host_id=host_id, user_id=user_id, url=url, **kwargs)

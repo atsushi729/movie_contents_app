@@ -3,11 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="055539a9-637d-42d3-9db0-e72d666d7a01" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/videos/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/videos/create.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/videos/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/videos/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/shortcuts.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/shortcuts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/videos/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/videos/detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/videos/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/videos/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/videos/routers.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/videos/routers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/videos/schemas.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/videos/schemas.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
