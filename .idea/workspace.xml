@@ -3,9 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="055539a9-637d-42d3-9db0-e72d666d7a01" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/users/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/users/auth.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/videos/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/videos/create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/videos/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/videos/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/videos/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/videos/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/videos/routers.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/videos/routers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/videos/schemas.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/videos/schemas.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +18,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -42,6 +45,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
