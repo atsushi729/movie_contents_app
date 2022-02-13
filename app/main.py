@@ -21,16 +21,24 @@ from app.videos.models import Video
 from app.videos.routers import router as video_router
 
 from app.watch_events.models import WatchEvent
-from app.watch_events.schemas import WatchEventSchema
+from app.watch_events.routers import router as watch_event_router
 
 DB_SESSION = None
 BASE_DIR = pathlib.Path(__file__).resolve().parent  # app/
 
+"""
+router schemas
+"""
 app = FastAPI()
 app.add_middleware(AuthenticationMiddleware, backend=JWTCookieBackend())
 app.include_router(video_router)
+app.include_router(watch_event_router)
 
 from .handlers import *  # noqa
+
+"""
+sync table schemas
+"""
 
 
 @app.on_event("startup")
@@ -118,17 +126,3 @@ def signup_post_view(request: Request,
 def user_list_view():
     q = User.objects.all().limit(10)
     return list(q)
-
-
-@app.post("/watch-event", response_model=WatchEventSchema)
-def watch_event_view(request: Request, watch_event: WatchEventSchema):
-    cleaned_data = watch_event.dict()
-    data = cleaned_data.copy()
-    data.update({
-        "user_id": request.user.username
-    })
-    print("data", data)
-    if request.user.is_authenticated:
-        WatchEvent.objects.create(**data)
-        return watch_event
-    return watch_event

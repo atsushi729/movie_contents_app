@@ -1,15 +1,17 @@
 {% extends "base.html" %}
 
 
-
 {% block content %}
+
+
+{% if object.title %}<h1>{{ object.title }}</h1>{% endif %}
+<p>{{ start_time }}</p>
 
 {{ host_id }}
 {{ object }}
 
 
-
-<div id='yt-video' data-video-id="{{ host_id }}" data-start-time='0'></div>
+<div id='yt-video' data-video-id="{{ host_id }}" data-start-time='{{ start_time }}'></div>
 
 <div><code>{{ object.render() }}</code></div>
 
@@ -20,6 +22,7 @@
         var videoId = youtubeVideoDiv.getAttribute("data-video-id")
         var defaultStartTime = 0;
         var initialStartTime = parseInt(youtubeVideoDiv.getAttribute("data-start-time")) || defaultStartTime;
+        var WatchEventEndpoint = "/api/events/watch"
         var player;
         var currentTime;
         var isPlaying;
@@ -28,14 +31,14 @@
         var timeSinceLastSaved = 0;
         var timeIntervalForSave = 5000;
         function onYouTubeIframeAPIReady() {
-            // console.log("hello world");
+<!--            console.log("hello world");-->
             player = new YT.Player('yt-video', {
                 height: '390',
                 width: '640',
                 videoId: videoId,
                 playerVars: {
                     'modestbranding': 1,
-                    'autoplay': 1,
+                    'autoplay': 0,
                     'start': 0,
                     'playsinline': 1,
                     'controls': 1,
@@ -54,7 +57,7 @@
     }
     function monitorCurrentPlayback() {
         currentTime = player.getCurrentTime()
-        console.log('currentTime', currentTime)
+<!--        console.log('currentTime', currentTime)-->
         timeSinceLastSaved += monitorTimeInterval
         if (isPlaying) {
             monitorTimeOut = setTimeout(monitorCurrentPlayback, monitorTimeInterval)
@@ -67,13 +70,13 @@
     function onPlayerStateChange(event) {
 
         if (event.data === YT.PlayerState.PLAYING) {
-            console.log("is playing")
+<!--            console.log("is playing")-->
             isPlaying = true
             monitorCurrentPlayback()
         }
 
         else if (event.data === YT.PlayerState.PAUSED) {
-            console.log("is paused")
+<!--            console.log("is paused")-->
             isPlaying = false
             clearTimeout(monitorTimeOut)
             monitorCurrentPlayback()
@@ -81,7 +84,7 @@
         }
 
         else if (event.data === YT.PlayerState.ENDED) {
-            console.log("is ended")
+<!--            console.log("is ended")-->
             isPlaying = false
             clearTimeout(monitorTimeOut)
             monitorCurrentPlayback()
@@ -100,7 +103,7 @@
             complete: (duration * .98) < currentTime
         }
         timeSinceLastSaved = 0;
-        console.log('saving...', data)
+<!--        console.log('saving...', data)-->
 
         var reqOptions = {
             method: "POST",
@@ -110,10 +113,15 @@
             body: JSON.stringify(data)
         }
 
-        fetch("/watch-event", reqOptions)
+        fetch(WatchEventEndpoint, reqOptions)
         .then(response=>response.json())
+        .then(data=>{
+<!--            console.log("success:", data)-->
+        })
+        .catch(err => {
+<!--            console.log("error:", err)-->
+        })
     }
-
 
 
 

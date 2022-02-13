@@ -5,6 +5,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/templates/videos/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/videos/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/videos/routers.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/videos/routers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/watch_events/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/watch_events/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
