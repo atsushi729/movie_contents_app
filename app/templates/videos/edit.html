@@ -4,7 +4,7 @@
 {% block content %}
 
 
-<h1>Edit {% if object.title %}{{ object.title }}{% else %}{{object.host_id }}{% endif %}</h1>
+<h1>Edit {% if object.title %}{{ object.title }}{% else %}{{ object.host_id }}{% endif %}</h1>
 
 {% with video=object %}
     {% include 'videos/htmx/edit.html' %}

@@ -1,5 +1,7 @@
 import uuid
 from typing import Optional
+from starlette.exceptions import HTTPException
+
 from fastapi import APIRouter, Request, Form, Depends
 from fastapi.responses import HTMLResponse
 
@@ -76,6 +78,7 @@ def video_list_view(request: Request):
 @router.get("/{host_id}", response_class=HTMLResponse)
 def video_detail_view(request: Request, host_id: str):
     obj = get_object_or_404(Video, host_id=host_id)
+    start_time = 0
     if request.user.is_authenticated:
         user_id = request.user.username
         start_time = WatchEvent.get_resume_time(host_id, user_id)
@@ -92,7 +95,7 @@ def video_detail_view(request: Request, host_id: str):
 def video_edit_view(request: Request, host_id: str):
     obj = get_object_or_404(Video, host_id=host_id)
     context = {
-        "object": obj,
+        "object": obj
     }
     return render(request, "videos/edit.html", context)
 
@@ -103,7 +106,7 @@ def video_edit_post_view(
         request: Request,
         host_id: str,
         is_htmx=Depends(is_htmx),
-        title: str = Form(...), 
+        title: str = Form(...),
         url: str = Form(...)):
     raw_data = {
         "title": title,
@@ -112,11 +115,71 @@ def video_edit_post_view(
     }
     obj = get_object_or_404(Video, host_id=host_id)
     context = {
-        "object": obj,
+        "object": obj
     }
     data, errors = utils.valid_schema_data_or_error(raw_data, VideoEditSchema)
     if len(errors) > 0:
         return render(request, "videos/edit.html", context, status_code=400)
     obj.title = data.get('title') or obj.title
     obj.update_video_url(url, save=True)
-    return render(request, "videos/edit.html", context, status_code=400)
+    return render(request, "videos/edit.html", context)
+
+
+@router.get("/{host_id}/hx-edit", response_class=HTMLResponse)
+@login_required
+def video_hx_edit_view(
+        request: Request,
+        host_id: str,
+        is_htmx=Depends(is_htmx)):
+    if not is_htmx:
+        raise HTTPException(status_code=400)
+    obj = None
+    not_found = False
+    try:
+        obj = get_object_or_404(Video, host_id=host_id)
+    except:
+        not_found = True
+    if not_found:
+        return HTMLResponse("Not Found, please try again")
+    context = {
+        "object": obj
+    }
+    return render(request, "videos/htmx/edit.html", context)
+
+
+@router.post("/{host_id}/hx-edit", response_class=HTMLResponse)
+@login_required
+def video_hx_edit_post_view(
+        request: Request,
+        host_id: str,
+        is_htmx=Depends(is_htmx),
+        title: str = Form(...),
+        url: str = Form(...),
+        delete: Optional[bool] = Form(default=False)):
+    if not is_htmx:
+        raise HTTPException(status_code=400)
+    obj = None
+    not_found = False
+    try:
+        obj = get_object_or_404(Video, host_id=host_id)
+    except:
+        not_found = True
+    if not_found:
+        return HTMLResponse("Not Found, please try again")
+    if delete:
+        obj.delete()
+        return HTMLResponse('Item Deleted')
+    raw_data = {
+        "title": title,
+        "url": url,
+        "user_id": request.user.username
+    }
+    data, errors = utils.valid_schema_data_or_error(raw_data, VideoEditSchema)
+    if len(errors) > 0:
+        return render(request, "videos/htmx/edit.html", context, status_code=400)
+    obj.title = data.get('title') or obj.title
+    obj.update_video_url(url, save=True)
+    context = {
+        "object": obj
+    }
+    return render(request, "videos/htmx/list-inline.html", context)

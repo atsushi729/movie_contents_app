@@ -12,7 +12,6 @@
 
 
 <div id='yt-video' data-video-id="{{ host_id }}" data-start-time='{{ start_time }}'></div>
-
 <div><code>{{ object.render() }}</code></div>
 
 
@@ -31,7 +30,6 @@
         var timeSinceLastSaved = 0;
         var timeIntervalForSave = 5000;
         function onYouTubeIframeAPIReady() {
-<!--            console.log("hello world");-->
             player = new YT.Player('yt-video', {
                 height: '390',
                 width: '640',
@@ -53,11 +51,9 @@
 
     function onPlayerReady(event){
         player.seekTo(initialStartTime)
-        // player.playVideo()
     }
     function monitorCurrentPlayback() {
         currentTime = player.getCurrentTime()
-<!--        console.log('currentTime', currentTime)-->
         timeSinceLastSaved += monitorTimeInterval
         if (isPlaying) {
             monitorTimeOut = setTimeout(monitorCurrentPlayback, monitorTimeInterval)
@@ -70,13 +66,11 @@
     function onPlayerStateChange(event) {
 
         if (event.data === YT.PlayerState.PLAYING) {
-<!--            console.log("is playing")-->
             isPlaying = true
             monitorCurrentPlayback()
         }
 
         else if (event.data === YT.PlayerState.PAUSED) {
-<!--            console.log("is paused")-->
             isPlaying = false
             clearTimeout(monitorTimeOut)
             monitorCurrentPlayback()
@@ -84,7 +78,6 @@
         }
 
         else if (event.data === YT.PlayerState.ENDED) {
-<!--            console.log("is ended")-->
             isPlaying = false
             clearTimeout(monitorTimeOut)
             monitorCurrentPlayback()
@@ -103,7 +96,6 @@
             complete: (duration * .98) < currentTime
         }
         timeSinceLastSaved = 0;
-<!--        console.log('saving...', data)-->
 
         var reqOptions = {
             method: "POST",
@@ -116,10 +108,8 @@
         fetch(WatchEventEndpoint, reqOptions)
         .then(response=>response.json())
         .then(data=>{
-<!--            console.log("success:", data)-->
         })
         .catch(err => {
-<!--            console.log("error:", err)-->
         })
     }
 
