@@ -2,20 +2,24 @@
 
 
 {% block content %}
-<h1>Add Playlist</h1>
-
-{% include 'snippets/form_errors.html' %}
-
-<form method="POST">
-    <div>
-        <label for="title">Title</label>
-        <input type="text" name="title" id="title" placeholder="Your Video Title"
-               value="{% if title %}{{ title }}{% endif %}"/>
+<div class="row">
+    <div class="col-12 col-md-3">
+        {% include 'playlists/sidebar.html' %}
     </div>
+    <div class="col-12 col-md-9">
+        <h1 >Add Playlist</h1>
 
+        {% include 'snippets/form_errors.html' %}
 
-    <button type="submit">Add Playlist</button>
-
-</form>
+        <form method="POST">
+            <div>
+                <label for="title">Title</label>
+                <input class="form-control" type="text" name="title" id="title" placeholder="Your Video Title"
+                       value="{% if title %}{{ title }}{% endif %}"/>
+            </div>
+            <button type="submit" class="btn btn-sm btn-primary mt-2">Create Playlist</button>
+        </form>
+    </div>
+</div>
 
 {% endblock %}

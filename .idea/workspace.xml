@@ -3,11 +3,25 @@
   <component name="ChangeListManager">
     <list default="true" id="055539a9-637d-42d3-9db0-e72d666d7a01" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/auth/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/auth/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/auth/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/auth/signup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/errors/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/errors/404.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/errors/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/errors/main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/playlists/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/playlists/create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/playlists/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/playlists/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/playlists/htmx/add-video.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/playlists/htmx/add-video.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/playlists/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/playlists/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/snippets/nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/snippets/nav.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/videos/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/videos/create.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/templates/videos/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/videos/detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/templates/videos/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/videos/edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/videos/htmx/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/videos/htmx/create.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/templates/videos/htmx/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/videos/htmx/edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/videos/htmx/link.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/videos/htmx/link.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/videos/htmx/list-inline.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/videos/htmx/list-inline.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/templates/videos/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/videos/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/videos/routers.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/videos/routers.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

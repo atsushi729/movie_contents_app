@@ -2,26 +2,32 @@
 
 
 {% block content %}
-<h1>Login</h1>
+<div class="row">
+    <div class="col-md-3 text-center mx-auto">
+        <h1>Login</h1>
 
-{% include 'snippets/form_errors.html' %}
+        {% include 'snippets/form_errors.html' %}
 
-{% if logged_in %}
-    <p>you are already logged in. Would you like to log out?</p>
-{% else %}
-<form method="POST">
-    <div>
-        <label for="email">Email</label>
-        <input type="email" name="email" placeholder="your@email.com"/>
+        {% if logged_in %}
+            <p>you are already logged in. Would you like to log out?</p>
+        {% else %}
+            <form method="POST">
+                <div>
+                    <label class="mt-2" for="email">Email</label>
+                    <input class="form-control mt-2" type="email" name="email" placeholder="your@email.com"/>
+                </div>
+
+                <div>
+                    <label class="mt-2" for="password">Password</label>
+                    <input class="form-control mt-2" type="password" name="password" placeholder="your password"/>
+                </div>
+                <button class="btn btn-outline-primary mt-2" type="submit">Sign up</button>
+            </form>
+            <div class="mt-2">
+                <p><a href="/signup">Do you need an account?</a></p>
+            </div>
+        {% endif %}
     </div>
-
-    <div>
-        <label for="password">Password</label>
-        <input type="password" name="password" placeholder="your password"/>
-    </div>
-    <button type="submit">Login</button>
-
-</form>
-{% endif %}
+</div>
 
 {% endblock %}

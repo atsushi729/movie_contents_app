@@ -2,17 +2,15 @@
 
 
 {% block content %}
-
-
-{% if object.title %}<h1>{{ object.title }}</h1>{% endif %}
-<p>{{ start_time }}</p>
-
-{{ host_id }}
-{{ object }}
-
-
-<div id='yt-video' data-video-id="{{ host_id }}" data-start-time='{{ start_time }}'></div>
-<div><code>{{ object.render() }}</code></div>
+<div class="row">
+    <div class="col-md-9 col-12">
+        <div class="ratio ratio-16x9" id='yt-video' data-video-id="{{ host_id }}" data-start-time='{{ start_time }}'></div>
+    </div>
+    <div class="col-md-3 col-12">
+        {% if object.title %}<h4>Title: {{ object.title }}</h4>{% endif %}
+        <code>{{ object.render() }}</code>
+    </div>
+</div>
 
 
 <script>

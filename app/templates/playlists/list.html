@@ -1,16 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-{% for object in object_list %}
-
-        <li>
-            <a href="{{ object.path }}">
-                {% if not object.title %}{{ object.db_id }}
-                {% else %}{{ object.title }}{% endif %}
-            </a>
-        </li>
-
-{% endfor %}
-
+<div class="row">
+    <div class="col-12 col-md-3">
+        {% include 'playlists/sidebar.html' %}
+    </div>
+    <div class="col-12 col-md-9">
+        <h1 class="my-2">Playlists</h1>
+        <div class="list-group">
+            {% for object in object_list %}
+                <a href="{{ object.path }}" class="list-group-item list-group-item-action">
+                    {% if not object.title %}{{ object.db_id }}
+                    {% else %}{{ object.title }}{% endif %}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock %}
