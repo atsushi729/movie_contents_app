@@ -1,5 +1,6 @@
 import pathlib
 import json
+from typing import Optional
 from fastapi import FastAPI, Request, Form, HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
@@ -8,7 +9,6 @@ from starlette.authentication import requires
 from cassandra.cqlengine.management import sync_table
 from pydantic.error_wrappers import ValidationError
 from app import config, db, utils
-
 
 # from app.playlists.models import Playlist
 from app.playlists.routers import router as playlist_router
@@ -76,14 +76,15 @@ log-in
 
 @app.get("/login", response_class=HTMLResponse)
 def login_get_view(request: Request):
-    session_id = request.cookies.get("session_id") or None
-    return render(request, "auth/login.html", status_code=200)
+    return render(request, "auth/login.html", {})
 
 
 @app.post("/login", response_class=HTMLResponse)
 def login_post_view(request: Request,
                     email: str = Form(...),
-                    password: str = Form(...)):
+                    password: str = Form(...),
+                    next: Optional[str] = "/",
+                    ):
     print(email, password)
     raw_data = {
         "email": email,
@@ -96,12 +97,26 @@ def login_post_view(request: Request,
     }
     if len(errors) > 0:
         return render(request, "auth/login.html", context, status_code=400)
-    return redirect("/", cookies=data)
+    if "http://127.0.0.1" not in next:
+        next = '/'
+    return redirect(next, cookies=data)
 
 
 """
 sigh-in
 """
+
+
+@app.get("/logout", response_class=HTMLResponse)
+def logout_get_view(request: Request):
+    if not request.user.is_authenticated:
+        return redirect('/login')
+    return render(request, "auth/logout.html", {})
+
+
+@app.post("/logout", response_class=HTMLResponse)
+def logout_post_view(request: Request):
+    return redirect(request, "login", remove_session=True)
 
 
 @app.get("/signup", response_class=HTMLResponse)
