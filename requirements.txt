@@ -8,6 +8,7 @@ pytest
 jinja2
 python-multipart
 python_jose[cryptography]
+algoliasearch
 
 
 
