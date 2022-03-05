@@ -11,6 +11,10 @@ from pydantic.error_wrappers import ValidationError
 from app import config, db, utils
 
 # from app.playlists.models import Playlist
+from app.indexing.client import (
+    update_index,
+    search_index,
+)
 from app.playlists.routers import router as playlist_router
 
 from app.shortcuts import redirect, render
@@ -141,7 +145,25 @@ def signup_post_view(request: Request,
     return redirect("/login")
 
 
-@app.get("/users")
-def user_list_view():
-    q = User.objects.all().limit(10)
-    return list(q)
+@app.post('/update-index', response_class=HTMLResponse)
+def htmx_update_index_view(request: Request):
+    count = update_index()
+    return HTMLResponse(f"({count}) Refreshed")
+
+
+@app.get("/search", response_class=HTMLResponse)
+def search_detail_view(request: Request, q: Optional[str] = None):
+    query = None
+    context = {}
+    if q is not None:
+        query = q
+        results = search_index(query)
+        hits = results.get("hits") or []
+        num_hits = results.get('nbHits')
+        context = {
+            "query": query,
+            "hits": hits,
+            "num_hits": num_hits
+        }
+        print(results.keys())
+    return render(request, "search/detail.html", context)
