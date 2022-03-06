@@ -1,4 +1,4 @@
-# title & overview
+# Title & Overview
 This is YouTube playlist application using Python(FastAPI) and Cassandra.
 
 # For improvement 
